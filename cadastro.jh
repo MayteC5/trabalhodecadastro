@@ -1,0 +1,82 @@
+
+enum Curso{
+	ENGENHARIA DE COMPUTACAO
+    SISTEMAS DE INFORMACAO
+}
+
+entity Aluno{ 
+	matricula Integer required
+    cpf String
+    nome String
+    sexo String
+    email String
+    cursoaluno Curso
+}
+
+enum Formacao{
+	GRADUADO
+    MESTRE
+    DOUTOR
+}
+
+entity Professor{
+	id Integer required
+    nome String
+    cpf String
+    formacaoprofessor Formacao
+}
+
+entity Conteudo{
+    codigoconteudo Integer required
+    nome String
+    descricao AnyBlob
+    carga Float
+}
+
+
+entity Turma{
+	codigoTurma Integer required
+    sala Integer
+    ano ZonedDateTime
+}
+
+entity Campus{
+    codigoCampus Integer required
+    cidade String
+}
+
+entity Contato{
+    matriculaaluno Integer required
+    telefone String
+}
+
+enum Formacao{
+	GRADUADO
+    MESTRE
+    DOUTOR
+}
+
+relationship ManyToMany{
+	Aluno{contato(matriculaaluno)} to Contato
+}
+
+relationship ManyToMany{
+	Professor{conteudo(codigoconteudo)} to Conteudo
+}
+
+relationship ManyToMany{
+	Turma{alunos(codigoaluno)} to Aluno
+}
+
+relationship ManyToMany{
+	Professor{campus(codigoCampus)} to Campus
+}
+
+relationship ManyToMany{
+    Campus{aluno(codigoaluno)} to Aluno
+}
+
+
+
+
+
